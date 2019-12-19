@@ -7,7 +7,12 @@ const fs = require('fs')
 let prompts = require('./prompts')
 
 
-function tempalteGenerator(tagsStr) {
+
+/**
+ * 模板生成器
+ * @param {Array} nodeTree 
+ */
+function tempalteGenerator(nodeTree) {
   tagsArr = tagsStr.split(' ')
   let tempalte = ''
   tagsArr.reduce((a, b) => {
@@ -21,27 +26,56 @@ function tempalteGenerator(tagsStr) {
 }
 
 
-inquirer.prompt(prompts).then((answers) => {
+async function askComponentName() {
   let {
-    componentName,
-    componentPath,
+    componentName
+  } = await inquirer.prompt(prompts.componentName)
+  return componentName
+}
+
+function askComponentSavePath() {
+  let {
+    componentSavePath
+  } = await inquirer.prompt(prompts.componentSavePath)
+  return componentSavePath
+}
+
+function askTags() {
+  let {
     tags
-  } = answers
+  } = await inquirer.prompt(prompts.tags)
+  let _isMultiTag = isMultiTag(tags)
+  if (_isMultiTag) {
 
-  let tempalte = tempalteGenerator(tags)
+  } else {
 
+  }
 
+  return tags
+}
 
+function askChildTags() {
+  let {
+    childTags
+  } = await inquirer.prompt(prompts.childTags)
+  return childTags
+}
 
+function isMultiTag(tags) {
+  return tags.indexOf(' ') !== -1;
+}
 
-
-  /**
-   * 写入
-   */
-  const writerStream = fs.createWriteStream(`${componentPath}/${componentName}.vue`)
+/**
+ * 
+ * @param {String} componentName  组件名
+ * @param {String} componentSavePath 组件保存路径
+ * @param {String} tempalte  组件内容
+ */
+function fileGenerator(componentName, componentSavePath, tempalte) {
+  const writerStream = fs.createWriteStream(`${componentSavePath}/${componentName}.vue`)
 
   writerStream.write(tempalte, 'UTF-8')
-  writerStream.end();
+  writerStream.end()
 
   writerStream.on('finish', () => {
     console.log('创建成功');
@@ -49,10 +83,106 @@ inquirer.prompt(prompts).then((answers) => {
   writerStream.on('error', (error) => {
     console.log('创建失败', error);
   })
+}
+
+/**
+ * 组件生成器
+ * @param {Object} info 
+ */
+function componentGenerator(info) {
+  let {
+    componentName,
+    componentSavePath,
+    nodeTree
+  } = info
+  let tempalte = tempalteGenerator(nodeTree)
+
+  fileGenerator(componentName, componentSavePath, tempalte)
+}
+
+async function init() {
+  let componentName = await askComponentName()
+  let componentSavePath = await askComponentSavePath()
+  let nodeTree = await askTags()
+
+  componentGenerator({
+    componentName,
+    componentSavePath,
+    nodeTree
+  })
+}
+
+init()
+
+/* inquirer.prompt(prompts).then((answers) => {
+  let {
+    componentName,
+    componentSavePath,
+    tags
+  } = answers
+
+
+  //一次输入多个标签 input radio 
+  let _isMultiTag = isMultiTag(tags)
+
+  if (!_isMultiTag) {
+
+    inquirer.prompt({
+      type: 'confirm',
+      name: 'needChildTag',
+      message: '需要子标签么？'
+    }).then((answers) => {
+      let = {
+        needChildTag
+      } = answers
+      if (needChildTag) {
+        inquirer.prompt({
+          type: 'input',
+          name: 'childTags',
+          message: '输入子标签'
+        }).then((answers) => {
+          let {
+            childTags
+          } = answers
+          console.log('====childTags=====', childTags);
+        })
+      }
+
+    })
+  }
 })
+ */
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* 
 program
   .command('module')
   .alias('m')
@@ -121,4 +251,4 @@ program
     console.log('$ app m moduleName')
   })
 
-program.parse(process.argv)
+program.parse(process.argv) */
