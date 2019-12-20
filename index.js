@@ -1,16 +1,19 @@
+'use strict'
 const program = require('commander')
 const inquirer = require('inquirer')
 const _ = require('lodash')
 const chalk = require('chalk')
 const fs = require('fs')
+let separator = ' '
 
-let prompts = require('./prompts')
-
-
+let {
+  promptCreator,
+  defaultPrompts
+} = require('./prompts')
 
 /**
  * 模板生成器
- * @param {Array} nodeTree 
+ * @param {Array} nodeTree
  */
 function tempalteGenerator(nodeTree) {
   tagsArr = tagsStr.split(' ')
@@ -18,76 +21,109 @@ function tempalteGenerator(nodeTree) {
   tagsArr.reduce((a, b) => {
     tempalte = a + `<${b}></${b}>`
     return tempalte
-
   }, tempalte)
-  console.log(tempalte);
+  console.log(tempalte)
 
   return tempalte
 }
 
-
 async function askComponentName() {
   let {
     componentName
-  } = await inquirer.prompt(prompts.componentName)
+  } = await inquirer.prompt([defaultPrompts.componentName])
+
   return componentName
 }
 
-function askComponentSavePath() {
+async function askComponentSavePath() {
   let {
     componentSavePath
-  } = await inquirer.prompt(prompts.componentSavePath)
+  } = await inquirer.prompt([
+    defaultPrompts.componentSavePath
+  ])
   return componentSavePath
 }
 
-function askTags() {
-  let {
-    tags
-  } = await inquirer.prompt(prompts.tags)
-  let _isMultiTag = isMultiTag(tags)
-  if (_isMultiTag) {
-
+function convert2Node(tags) {
+  tags = tags.split(separator)
+  if (convert2Node.root) {
+    convert2Node.root = false
+    return tags.map(tag => {
+      return {
+        tagName: tag
+      }
+    })[0]
   } else {
-
+    return tags.map(tag => {
+      return {
+        tagName: tag
+      }
+    })
   }
+}
+convert2Node.root = true
 
-  return tags
+function isMultiTag(tags) {
+  return tags.indexOf(' ') !== -1
 }
 
-function askChildTags() {
+async function askTags() {
+  let {
+    tags
+  } = await inquirer.prompt([defaultPrompts.tags])
+
+  let node = convert2Node(tags)
+  let _isMultiTag = isMultiTag(tags)
+  if (!_isMultiTag) {
+    let {
+      needChildTag
+    } = await inquirer.prompt([defaultPrompts.needChildTag])
+    if (needChildTag) {
+      if (askTags.root) {
+        askTags.root = false
+        node.children = await askTags()
+      } else {
+        node[0].children = await askTags()
+      }
+
+    }
+  }
+  return node
+}
+askTags.root = true
+
+async function askChildTags() {
   let {
     childTags
-  } = await inquirer.prompt(prompts.childTags)
+  } = await inquirer.prompt(defaultPrompts.childTags)
   return childTags
 }
 
-function isMultiTag(tags) {
-  return tags.indexOf(' ') !== -1;
-}
-
 /**
- * 
+ *
  * @param {String} componentName  组件名
  * @param {String} componentSavePath 组件保存路径
  * @param {String} tempalte  组件内容
  */
 function fileGenerator(componentName, componentSavePath, tempalte) {
-  const writerStream = fs.createWriteStream(`${componentSavePath}/${componentName}.vue`)
+  const writerStream = fs.createWriteStream(
+    `${componentSavePath}/${componentName}.vue`
+  )
 
   writerStream.write(tempalte, 'UTF-8')
   writerStream.end()
 
   writerStream.on('finish', () => {
-    console.log('创建成功');
+    console.log('创建成功')
   })
-  writerStream.on('error', (error) => {
-    console.log('创建失败', error);
+  writerStream.on('error', error => {
+    console.log('创建失败', error)
   })
 }
 
 /**
  * 组件生成器
- * @param {Object} info 
+ * @param {Object} info
  */
 function componentGenerator(info) {
   let {
@@ -101,20 +137,23 @@ function componentGenerator(info) {
 }
 
 async function init() {
-  let componentName = await askComponentName()
-  let componentSavePath = await askComponentSavePath()
-  let nodeTree = await askTags()
+  // let componentName = await askComponentName()
 
-  componentGenerator({
-    componentName,
-    componentSavePath,
-    nodeTree
-  })
+  // let componentSavePath = await askComponentSavePath()
+  let nodeTree = await askTags()
+  console.log(nodeTree);
+
+
+  // componentGenerator({
+  //   componentName,
+  //   componentSavePath,
+  //   nodeTree
+  // })
 }
 
 init()
 
-/* inquirer.prompt(prompts).then((answers) => {
+/* inquirer.prompt(defaultPrompts).then((answers) => {
   let {
     componentName,
     componentSavePath,
@@ -152,35 +191,6 @@ init()
   }
 })
  */
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 /* 
 program

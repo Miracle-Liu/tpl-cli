@@ -20,5 +20,6 @@ module.exports = {
     componentSavePath: promptCreator('input', 'componentSavePath', '存放路径'),
     tags: promptCreator('input', 'tags', '所需标签，空格分隔'),
     childTags: promptCreator('input', 'childTags', '所需子标签，空格分隔'),
+    needChildTag: promptCreator('confirm', 'needChildTag', '需要子标签么？'),
   }
 }
