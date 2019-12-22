@@ -25,4 +25,5 @@ function tempalteGenerator(nodeTree) {
   }
   return cheerio.html(dom)
 }
+
 module.exports = tempalteGenerator

@@ -1,11 +1,14 @@
 const inquirer = require('inquirer')
+const convert2NodeTree = require('../transformInputInfo')
+const config = require('../config/tpl.config.js')
+let separator = config.separator
+
 let {
   promptCreator,
   defaultPrompts
 } = require('../prompts')
 
 
-let separator = ' '
 async function askComponentName() {
   let {
     componentName
@@ -23,12 +26,16 @@ async function askComponentSavePath() {
   return componentSavePath
 }
 
+function isMultiTag(tags) {
+  return tags.indexOf(separator) !== -1
+}
+
 async function askTags() {
   let {
     tags
   } = await inquirer.prompt([defaultPrompts.tags])
 
-  let node = convert2Node(tags)
+  let node = convert2NodeTree(tags)
   let _isMultiTag = isMultiTag(tags)
   if (!_isMultiTag) {
     let {
@@ -41,7 +48,6 @@ async function askTags() {
       } else {
         node[0].children = await askTags()
       }
-
     }
   }
   return node
@@ -53,30 +59,6 @@ async function askChildTags() {
     childTags
   } = await inquirer.prompt(defaultPrompts.childTags)
   return childTags
-}
-
-
-function convert2Node(tags) {
-  tags = tags.split(separator)
-  if (convert2Node.root) {
-    convert2Node.root = false
-    return tags.map(tag => {
-      return {
-        tagName: tag
-      }
-    })[0]
-  } else {
-    return tags.map(tag => {
-      return {
-        tagName: tag
-      }
-    })
-  }
-}
-convert2Node.root = true
-
-function isMultiTag(tags) {
-  return tags.indexOf(separator) !== -1
 }
 
 

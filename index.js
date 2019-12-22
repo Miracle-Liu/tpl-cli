@@ -1,5 +1,15 @@
 'use strict'
 
+
+class App {
+  constructor() {
+    /** 
+     * 注入各项服务，插件
+     * ImportStatementService  filegenerator.....
+     */
+  }
+}
+
 let {
   askComponentName,
   askComponentSavePath,

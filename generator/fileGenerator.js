@@ -1,5 +1,8 @@
 const chalk = require('chalk')
 const fs = require('fs')
+const config = require('../config/tpl.config.js')
+
+let fileSuffixes = config.config
 
 /**
  *
@@ -9,7 +12,7 @@ const fs = require('fs')
  */
 function fileGenerator(componentName, componentSavePath, tempalte) {
   const writerStream = fs.createWriteStream(
-    `${componentSavePath}/${componentName}.vue`
+    `${componentSavePath}/${componentName}.${fileSuffixes}`
   )
 
   writerStream.write(tempalte, 'UTF-8')

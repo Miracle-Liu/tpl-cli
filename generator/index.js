@@ -1,5 +1,8 @@
 let fileGenerator = require('./fileGenerator')
 let tempalteGenerator = require('./tempalteGenerator')
+let importStatementService = require('../importStatement/index')
+let contentGenerator = require('./contentGenerator')
+
 
 /**
  * 组件生成器
@@ -13,7 +16,19 @@ function componentGenerator(info) {
   } = info
   let tempalte = tempalteGenerator(nodeTree)
 
-  fileGenerator(componentName, componentSavePath, tempalte)
+  let importStatement = importStatementService.importStatementGenerator()
+
+  let components = tempalteGenerator()
+
+  let content = contentGenerator({
+    tempalte,
+    importStatement,
+    components
+  })
+  console.log(content)
+
+  fileGenerator(componentName, componentSavePath, content)
+
 }
 
 
