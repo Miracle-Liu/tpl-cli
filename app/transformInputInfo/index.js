@@ -1,6 +1,5 @@
 const config = require('../config/tpl.config.js')
 const tagMapping = require('../config/tagMapping.js')
-const ImportStatementService = require('../importStatement/index')
 const Tag = require('../tag/index')
 
 
@@ -27,7 +26,8 @@ function nodeWapper(tagName) {
   let node = null
   if (tagMapping[tagName]) {
     node = new Tag(tagMapping[tagName])
-    ImportStatementService.setImportPath(tagMapping[tagName])
+    setImportPath(tagMapping[tagName])
+    setComponents(tagMapping[tagName])
   } else {
     node = {
       tagName
@@ -37,6 +37,27 @@ function nodeWapper(tagName) {
 }
 
 
+function setImportPath(tagMapping) {
+  let importPath = process.state.importPath
+  let {
+    tagName,
+    path
+  } = tagMapping
+  if (!importPath[tagName]) {
+    importPath[tagName] = path
+  }
+}
+
+function setComponents(tagMapping) {
+  let components = process.state.childComponents
+  let {
+    tagName,
+    path
+  } = tagMapping
+  if (!components[tagName]) {
+    components[tagName] = tagName
+  }
+}
 
 
 

@@ -1,7 +1,8 @@
 let fileGenerator = require('./fileGenerator')
 let tempalteGenerator = require('./tempalteGenerator')
-let importStatementService = require('../importStatement/index')
+let importStatementGenerator = require('./importStatementGenerator')
 let contentGenerator = require('./contentGenerator')
+let componentsGenerator = require('./componentsGenerator')
 
 
 /**
@@ -12,20 +13,22 @@ function componentGenerator(info) {
   let {
     componentName,
     componentSavePath,
-    nodeTree
+    nodeTree,
+    importPath,
+    childComponents
   } = info
   let tempalte = tempalteGenerator(nodeTree)
 
-  let importStatement = importStatementService.importStatementGenerator()
+  let importStatement = importStatementGenerator(importPath)
 
-  let components = tempalteGenerator()
+  let components = componentsGenerator(childComponents)
+
 
   let content = contentGenerator({
     tempalte,
     importStatement,
-    components
+    components,
   })
-  console.log(content)
 
   fileGenerator(componentName, componentSavePath, content)
 

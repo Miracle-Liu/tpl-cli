@@ -23,7 +23,7 @@ function vueTempalteGenerator(options) {
     `
   <script>
     ${importStatement}
-    export default = {
+    export default {
       components:${components}
     }
   </script>
@@ -38,6 +38,8 @@ function vueTempalteGenerator(options) {
   return tempalte + script + styleSheet
 
 }
+
+
 
 function reactTempalteGenerator() {
 

@@ -8,7 +8,7 @@ const $ = cheerio = require('cheerio')
 
 /**
  * 模板生成器
- * @param {Object} nodeTree
+ * @param {Object} nodeTree {tagName:"div",children:[{tagName:"div",children}]}
  */
 function tempalteGenerator(nodeTree) {
   let {
