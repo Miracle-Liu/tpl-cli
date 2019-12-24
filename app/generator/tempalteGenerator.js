@@ -15,11 +15,11 @@ const tagMapping = require('../config/tagMapping.js')
 function tempalteGenerator(nodeTree) {
   let {
     tagName,
-    attrs,
+    props,
     children
   } = nodeTree
   tagName = tagNameMapping(tagName)
-  attrs = tagAttrs(attrs)
+  props = tagAttrs(attrs)
   let dom = $(`<${tagName}>`)
   if (!children) {
     return dom

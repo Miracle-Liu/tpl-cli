@@ -23,7 +23,7 @@ function componentsGenerator(nodeTree) {
     }
   }
 
-  return JSON.stringify(components)
+  return components
 }
 
 

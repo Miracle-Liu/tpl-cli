@@ -27,7 +27,7 @@ function vueTempalteGenerator(info) {
 
   let components = this.componentsGenerator(nodeTree)
 
-
+  components = Object.values(components).join(',')
 
 
 
@@ -40,7 +40,9 @@ function vueTempalteGenerator(info) {
     ${importStatement}
     export default {
       name:'${componentName}',
-      ${components}
+      components:{
+        ${components}
+      }, 
     }
   </script>
   `
