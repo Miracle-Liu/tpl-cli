@@ -26,8 +26,6 @@ function nodeWapper(tagName) {
   let node = null
   if (tagMapping[tagName]) {
     node = new Tag(tagMapping[tagName])
-    setImportPath(tagMapping[tagName])
-    setComponents(tagMapping[tagName])
   } else {
     node = {
       tagName
@@ -35,32 +33,5 @@ function nodeWapper(tagName) {
   }
   return node
 }
-
-
-function setImportPath(tagMapping) {
-  let importPath = process.state.importPath
-  let {
-    tagName,
-    path
-  } = tagMapping
-  if (!importPath[tagName]) {
-    importPath[tagName] = path
-  }
-}
-
-function setComponents(tagMapping) {
-  let components = process.state.childComponents
-  let {
-    tagName,
-    path
-  } = tagMapping
-  if (!components[tagName]) {
-    components[tagName] = tagName
-  }
-}
-
-
-
-
 
 module.exports = convert2NodeTree

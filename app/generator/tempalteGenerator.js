@@ -1,4 +1,6 @@
 const $ = cheerio = require('cheerio')
+const tagMapping = require('../config/tagMapping.js')
+
 
 /**
  * cheerio  轻便但功能少，编写不太方便
@@ -8,13 +10,16 @@ const $ = cheerio = require('cheerio')
 
 /**
  * 模板生成器
- * @param {Object} nodeTree {tagName:"div",children:[{tagName:"div",children}]}
+ * @param {Object} nodeTree {tagName:"div",children:[{tagName:"div",children:[{tagName:input}]}]}
  */
 function tempalteGenerator(nodeTree) {
   let {
     tagName,
+    attrs,
     children
   } = nodeTree
+  tagName = tagNameMapping(tagName)
+  attrs = tagAttrs(attrs)
   let dom = $(`<${tagName}>`)
   if (!children) {
     return dom
@@ -24,6 +29,14 @@ function tempalteGenerator(nodeTree) {
     });
   }
   return cheerio.html(dom)
+}
+
+function tagNameMapping(tagName) {
+  return tagMapping[tagName] ? tagMapping[tagName].tagName : tagName
+}
+
+function tagAttrs(attrs) {
+
 }
 
 module.exports = tempalteGenerator

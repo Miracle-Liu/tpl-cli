@@ -1,8 +1,28 @@
+const tagMapping = require('../config/tagMapping.js')
 /**
  * 
- * @param {Object} importPath  {tagName:path}
+ * @param {Object} nodeTree {tagName:"div",children:[{tagName:"div",children:[{tagName:input}]}]}
  */
-function importStatementGenerator(importPath) {
+function importStatementGenerator(nodeTree) {
+
+  let importPath = {}
+  setImportPath(nodeTree)
+
+  function setImportPath(nodeTree) {
+    let {
+      tagName,
+      children
+    } = nodeTree
+    if (tagMapping[tagName] && !importPath[tagMapping[tagName].tagName]) {
+      importPath[tagMapping[tagName].tagName] = tagMapping[tagName].path
+    }
+    if (children && children.length !== 0) {
+      children.forEach(child => {
+        setImportPath(child)
+      })
+    }
+  }
+
   let kvs = Object.entries(importPath)
   let importStatement = ''
   kvs.forEach(kv => {
@@ -13,5 +33,8 @@ function importStatementGenerator(importPath) {
 
   return importStatement
 }
+
+
+
 
 module.exports = importStatementGenerator

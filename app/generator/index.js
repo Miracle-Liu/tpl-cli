@@ -17,24 +17,29 @@ function componentGenerator(info) {
     importPath,
     childComponents
   } = info
-  let tempalte = tempalteGenerator(nodeTree)
+  let tempalte = this.tempalteGenerator(nodeTree)
 
-  let importStatement = importStatementGenerator(importPath)
+  let importStatement = this.importStatementGenerator(nodeTree)
 
-  let components = componentsGenerator(childComponents)
+  let components = this.componentsGenerator(nodeTree)
 
 
-  let content = contentGenerator({
+  let content = this.contentGenerator({
     tempalte,
     importStatement,
     components,
   })
 
-  fileGenerator(componentName, componentSavePath, content)
+  this.fileGenerator(componentName, componentSavePath, content)
 
 }
 
 
 module.exports = {
-  componentGenerator
+  componentGenerator,
+  tempalteGenerator,
+  importStatementGenerator,
+  componentsGenerator,
+  contentGenerator,
+  fileGenerator
 }
