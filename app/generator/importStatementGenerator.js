@@ -28,7 +28,7 @@ function importStatementGenerator(nodeTree) {
   kvs.forEach(kv => {
     let tagName = kv[0]
     let path = kv[1]
-    importStatement += `import ${tagName} from "${path}"`
+    importStatement += `import ${tagName} from "${path}" \n`
   })
 
   return importStatement

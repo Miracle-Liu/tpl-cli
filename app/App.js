@@ -53,7 +53,7 @@ async function run() {
   Object.assign(state, componentTemplate)
 
 
-  console.log(process.state)
+
 
 
   this.componentGenerator(process.state)
