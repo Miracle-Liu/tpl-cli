@@ -10,7 +10,7 @@ const tagMapping = require('../config/tagMapping.js')
 
 /**
  * 模板生成器
- * @param {Object} nodeTree {tagName:"div",children:[{tagName:"div",children:[{tagName:input}]}]}
+ * @param {Object} nodeTree 
  */
 function tempalteGenerator(nodeTree) {
   let {
@@ -19,8 +19,9 @@ function tempalteGenerator(nodeTree) {
     children
   } = nodeTree
   tagName = tagNameMapping(tagName)
-  props = tagAttrs(attrs)
-  let dom = $(`<${tagName}>`)
+  props = tagAttrs(props)
+  let tag = props ? tagName + props : tagName
+  let dom = $(`<${tag}>`)
   if (!children) {
     return dom
   } else {
@@ -31,12 +32,31 @@ function tempalteGenerator(nodeTree) {
   return cheerio.html(dom)
 }
 
+/**
+ * 
+ * @param {String} tagName 
+ */
 function tagNameMapping(tagName) {
   return tagMapping[tagName] ? tagMapping[tagName].tagName : tagName
 }
 
-function tagAttrs(attrs) {
+/**
+ * 设置节点的DOM属性
+ * @param {Object} props 标签属性
+ */
+function tagAttrs(props) {
+  if (!props) {
+    return
+  }
+  propsEntries = Object.entries(props)
 
+  let str = ''
+  str = propsEntries.reduce((pre, next) => {
+    let propName = next[0]
+    let propValue = next[1]
+    return pre + ' ' + propName + "=" + propValue
+  }, str)
+  return str
 }
 
 module.exports = tempalteGenerator

@@ -15,7 +15,7 @@ module.exports = {
             tagName: "input",
             props: {
               lable: '标题',
-              value: "title",
+              "v-mode": "title",
               required: true
             }
           }]
@@ -30,7 +30,7 @@ module.exports = {
             tagName: "input",
             props: {
               lable: '作者',
-              value: "author",
+              "v-mode": "author",
             }
           }]
         },
@@ -43,7 +43,7 @@ module.exports = {
             tagName: "select",
             props: {
               lable: '分类',
-              value: "catalog",
+              "v-mode": "catalog",
               required: true
             }
           }]
@@ -55,7 +55,7 @@ module.exports = {
             tagName: "date",
             props: {
               lable: '发布时间',
-              value: "pub_time",
+              "v-mode": "pub_time",
             }
           }]
         },

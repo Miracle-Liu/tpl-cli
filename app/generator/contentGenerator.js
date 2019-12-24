@@ -34,21 +34,19 @@ function vueTempalteGenerator(info) {
 
   tempalte = `<tempalte>${tempalte}</tempalte>`
 
-  let script =
-    `
+  let script = `
   <script>
-    ${importStatement}
-    export default {
-      name:'${componentName}',
-      components:{
-        ${components}
-      }, 
-    }
+  ${importStatement}
+  export default {
+    name:'${componentName}',
+    components:{
+      ${components}
+    }, 
+  }
   </script>
   `
 
-  let styleSheet =
-    `
+  let styleSheet = `
   <style lang="scss">
     .${componentName}-container{
 

@@ -4,6 +4,7 @@ let tempalteGenerator = require('./tempalteGenerator')
 let importStatementGenerator = require('./importStatementGenerator')
 let contentGenerator = require('./contentGenerator')
 let componentsGenerator = require('./componentsGenerator')
+let stateGenerator = require('./stateGenerator')
 
 
 
@@ -16,5 +17,6 @@ module.exports = {
   contentGenerator,
   tempalteGenerator,
   importStatementGenerator,
-  componentsGenerator
+  componentsGenerator,
+  stateGenerator
 }
