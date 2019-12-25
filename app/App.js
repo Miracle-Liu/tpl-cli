@@ -1,6 +1,8 @@
 const _ = require('lodash')
 let questionsPlugins = Object.values(require('./questions'))
 let generatorPlugins = Object.values(require('./generator'))
+let loadComponentTemplatePlugns = Object.values(require('./loadComponentTemplate'))
+
 
 
 
@@ -39,7 +41,7 @@ async function run() {
 
 
 
-  let componentTemplate = require('../template/index')
+  let componentTemplate = this.loadComponentTemplate()
 
   // process.state.componentName = await this.askComponentName()
 
@@ -60,6 +62,6 @@ async function run() {
 }
 
 
-App.extend([run, ...questionsPlugins, ...generatorPlugins])
+App.extend([run, ...questionsPlugins, ...generatorPlugins, ...loadComponentTemplatePlugns])
 
 module.exports = App
