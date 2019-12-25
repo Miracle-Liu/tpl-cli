@@ -4,8 +4,7 @@ const tagMapping = require('../config/tagMapping.js')
  * @param {Object} nodeTree {tagName:"div",children:[{tagName:"div",children:[{tagName:input}]}]}
  */
 function importStatementGenerator(nodeTree) {
-
-  let importPath = {}
+  let importPath = Object.create(null)
   setImportPath(nodeTree)
 
   function setImportPath(nodeTree) {

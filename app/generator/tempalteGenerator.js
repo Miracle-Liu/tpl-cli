@@ -1,5 +1,10 @@
 const $ = (cheerio = require('cheerio'))
-const tagMapping = require('../config/tagMapping.js')
+let tagMapping = require('../config/tagMapping.js')
+let {
+  hasChinese,
+  isEnglishBegin
+} = require('../utils/index.js')
+
 // const he = require('he')
 // const escaper = require('true-html-escape')
 /**
@@ -79,10 +84,9 @@ function tagNameMapping(tagName) {
  * @param {Object} props 标签属性
  * @return  {Object}  便签属性k v
  *
- * 中文字符拼接后，会被转义
  */
 function tagAttrs(props) {
-  if (!props || Object.keys.length === 0) {
+  if (!props || Object.keys(props).length === 0) {
     return
   }
   propsEntries = Object.entries(props)
@@ -101,23 +105,6 @@ function tagAttrs(props) {
   })
   return propsTemp
 }
-//检测是否包含中文
-function hasChinese(str) {
-  if (/.*[\u4e00-\u9fa5]+.*/.test(str)) {
-    return true
-  } else {
-    return false
-  }
-}
-//检测是否英文开头，主要处理 label-width="80px" 这种属性
-function isEnglishBegin(str) {
-  if (/^[A-Za-z]/.test(str)) {
-    return true
-  } else {
-    return false
-  }
-}
-
 
 function setAttr(dom, props) {
   for (const name in props) {

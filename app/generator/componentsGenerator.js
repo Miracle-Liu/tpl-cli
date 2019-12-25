@@ -5,7 +5,7 @@ const tagMapping = require('../config/tagMapping.js')
  */
 
 function componentsGenerator(nodeTree) {
-  let components = {}
+  let components = Object.create(null)
   setComponents(nodeTree)
 
   function setComponents(nodeTree) {

@@ -29,6 +29,9 @@ function vueTempalteGenerator(info) {
 
   components = Object.values(components).join(',')
 
+  let state = this.stateGenerator(nodeTree)
+
+  state = JSON.stringify(state)
 
 
 
@@ -42,6 +45,9 @@ function vueTempalteGenerator(info) {
     components:{
       ${components}
     }, 
+    data() {
+      return ${state}
+    }
   }
   </script>
   `

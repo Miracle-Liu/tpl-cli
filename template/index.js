@@ -19,7 +19,7 @@ module.exports = {
             tagName: "input",
             props: {
               lable: '标题',
-              "v-mode": "title",
+              "v-mode": "form.title",
               required: true
             }
           }]
@@ -34,7 +34,7 @@ module.exports = {
             tagName: "input",
             props: {
               lable: '作者',
-              "v-mode": "author",
+              "v-mode": "form.author",
             }
           }]
         },
@@ -47,7 +47,7 @@ module.exports = {
             tagName: "select",
             props: {
               lable: '分类',
-              "v-mode": "catalog",
+              "v-mode": "form.catalog",
               required: true
             }
           }]
@@ -59,7 +59,7 @@ module.exports = {
             tagName: "date",
             props: {
               lable: '发布时间',
-              "v-mode": "pub_time",
+              "v-mode": "form.pub_time",
             }
           }]
         },
