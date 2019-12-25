@@ -94,14 +94,14 @@ function tagAttrs(props) {
       propName = `:${propName}`
     }
     let propValue = v[1]
-    if (hasChinese(propValue)) {
+    if (hasChinese(propValue) || !isEnglishBegin(propValue)) {
       propValue = `\'${propValue}\'`
     }
     propsTemp[propName] = propValue
   })
   return propsTemp
 }
-
+//检测是否包含中文
 function hasChinese(str) {
   if (/.*[\u4e00-\u9fa5]+.*/.test(str)) {
     return true
@@ -109,6 +109,15 @@ function hasChinese(str) {
     return false
   }
 }
+//检测是否英文开头，主要处理 label-width="80px" 这种属性
+function isEnglishBegin(str) {
+  if (/^[A-Za-z]/.test(str)) {
+    return true
+  } else {
+    return false
+  }
+}
+
 
 function setAttr(dom, props) {
   for (const name in props) {

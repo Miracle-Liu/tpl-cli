@@ -5,6 +5,10 @@ module.exports = {
     tagName: 'el-dialog',
     children: [{
       tagName: "el-form",
+      props: {
+        model: 'form',
+        'label-width': "80px"
+      },
       children: [{
           tagName: "el-form-item",
           props: {
