@@ -7,15 +7,14 @@ class Tag {
 
 /**
  * Element virdual-dom 对象定义
- * @param {String} tagName - dom 元素名称
- * @param {Object} props - dom 属性
- * @param {Array<Element|String>} - 子节点
+ * @param {String} tagName 
+ * @param {Object} props 
+ * @param {Array<Element|String>}
  */
 function Element(tagName, props, children) {
   this.tagName = tagName
   this.props = props
   this.children = children
-  // dom 元素的 key 值，用作唯一标识符
   if (props.key) {
     this.key = props.key
   }
@@ -28,7 +27,6 @@ function Element(tagName, props, children) {
     }
     count++
   })
-  // 子元素个数
   this.count = count
 }
 
@@ -42,7 +40,6 @@ function createElement(tagName, props, children) {
 Element.prototype.render = function () {
   var el = document.createElement(this.tagName)
   var props = this.props
-  // 设置节点的DOM属性
   for (var propName in props) {
     var propValue = props[propName]
     el.setAttribute(propName, propValue)
@@ -51,9 +48,8 @@ Element.prototype.render = function () {
   var children = this.children || []
   children.forEach(function (child) {
     var childEl = (child instanceof Element) ?
-      child.render() // 如果子节点也是虚拟DOM，递归构建DOM节点
-      :
-      document.createTextNode(child) // 如果字符串，只构建文本节点
+      child.render() :
+      document.createTextNode(child)
     el.appendChild(childEl)
   })
   return el

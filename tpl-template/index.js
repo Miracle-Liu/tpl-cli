@@ -41,7 +41,7 @@ module.exports = {
         {
           tagName: "el-form-item",
           props: {
-            prop: "catalog"
+            prop: '"catalog"'
           },
           children: [{
             tagName: "select",

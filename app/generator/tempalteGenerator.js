@@ -2,7 +2,9 @@ const $ = (cheerio = require('cheerio'))
 let tagMapping = require('../config/tagMapping.js')
 let {
   hasChinese,
-  isEnglishBegin
+  isEnglishBegin,
+  isWrappedInSingleQuotes,
+  replaceDoubleQuotes2SingleQuotes
 } = require('../utils/index.js')
 
 // const he = require('he')
@@ -97,9 +99,13 @@ function tagAttrs(props) {
     if (!propName.startsWith('v-')) {
       propName = `:${propName}`
     }
+
     let propValue = v[1]
     if (hasChinese(propValue) || !isEnglishBegin(propValue)) {
-      propValue = `\'${propValue}\'`
+      propValue = replaceDoubleQuotes2SingleQuotes(propValue)
+      if (!isWrappedInSingleQuotes(propValue)) {
+        propValue = `\'${propValue}\'`
+      }
     }
     propsTemp[propName] = propValue
   })

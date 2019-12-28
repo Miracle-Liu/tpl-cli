@@ -21,6 +21,5 @@ module.exports = {
   date: {
     tagName: 'InputDatePickerCustom',
     path: "@/compoments/InputDatePickerCustom",
-
   }
 }

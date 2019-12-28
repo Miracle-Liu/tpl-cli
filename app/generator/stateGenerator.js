@@ -34,14 +34,12 @@ function stateGenerator(nodeTree) {
     propsEntries.forEach(v => {
       let propValue = v[1]
       if (!hasChinese(propValue) && isEnglishBegin(propValue) && !_.isBoolean(propValue)) {
-        // [form,title]
         let stateKeys = propValue.split('.')
         let len = stateKeys.length
         let i = 0
 
         stateKeys.reduce((f, s) => {
           i++
-          //已经在state中了就不需要处理el-form :model="form">
           if (f[s]) {
             return f[s]
           }

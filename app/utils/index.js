@@ -15,8 +15,21 @@ function isEnglishBegin(str) {
   }
 }
 
+//是否被单引号包裹
+function isWrappedInSingleQuotes(str) {
+  return /^[\'].*?[\']$/.test(str)
+}
+
+//替换双引号为单引号
+function replaceDoubleQuotes2SingleQuotes(str) {
+  return str.replace(/(^\")|(\"$)/g, "'")
+}
+
+
 
 module.exports = {
   hasChinese,
-  isEnglishBegin
+  isEnglishBegin,
+  isWrappedInSingleQuotes,
+  replaceDoubleQuotes2SingleQuotes
 }
