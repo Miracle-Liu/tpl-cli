@@ -1,7 +1,7 @@
 const tagMapping = require('../config/tagMapping.js')
 /**
  *  引用组件 
- * @param {Object} nodeTree {tagName:"div",children:[{tagName:"div",children:[{tagName:input}]}]}
+ * @param {Object} nodeTree 
  */
 
 function componentsGenerator(nodeTree) {

@@ -57,7 +57,6 @@ function tagNameMapping(tagName) {
  * @param {Object} props 标签属性
  * @return  {String}  便签属性拼接字符串
  *
- * 中文字符拼接后，会被转义
  */
 /* function tagAttrs(props) {
   if (!props) {

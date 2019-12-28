@@ -1,14 +1,12 @@
 {
-  "name": "tpl-cli",
-  "version": "1.0.0",
+  "name": "tpl",
+  "version": "0.0.1",
   "description": "命令行自动化动态模板生成工具",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "bin": {
-    "tpl": "tpl-cli"
-  },
+  "bin": "bin/tpl",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/Miracle-Liu/tpl-cli.git"

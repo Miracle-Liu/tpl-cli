@@ -29,7 +29,6 @@ function injectPlugin(plugin) {
   }
 }
 
-// {tagName:"div",children:[{tagName:"div",children}]}
 async function run() {
   let state = process.state = {
     componentName: 'test',

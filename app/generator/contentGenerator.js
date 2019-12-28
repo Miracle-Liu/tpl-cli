@@ -1,5 +1,5 @@
 /**
- * 
+ * 创建文件内容
  * @param {Object} info 
  */
 function contentGenerator(info) {
