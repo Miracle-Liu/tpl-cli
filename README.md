@@ -171,18 +171,30 @@ you will find a file named test.vue,here is the content of the build file:
 ```vue
 <tempalte>
   <el-dialog>
-    <el-form :model="form" :label-width="'80px'">
-      <el-form-item :lable="'标题'" :required="true">
-        <inputtextcustom :lable="'标题'" v-mode="form.title" :required="true"></inputtextcustom>
+    <el-form :model="form"
+              :label-width="'80px'"
+              :rules="rules">
+      <el-form-item :lable="'标题'"
+                    :required="true">
+        <inputtextcustom :lable="'标题'"
+                          v-model="form.title"
+                          :required="true"></inputtextcustom>
       </el-form-item>
-      <el-form-item :lable="'作者'" :required="true">
-        <inputtextcustom :lable="'作者'" v-mode="form.author"></inputtextcustom>
+      <el-form-item :lable="'作者'"
+                    :required="true">
+        <inputtextcustom :lable="'作者'"
+                          v-model="form.author"
+                          :placeholder="'填写作者'"></inputtextcustom>
       </el-form-item>
       <el-form-item :prop="'catalog'">
-        <inputcustomselect :lable="'分类'" v-mode="form.catalog" :required="true"></inputcustomselect>
+        <inputcustomselect :lable="'分类'"
+                            v-model="form.catalog"
+                            :required="true"
+                            :placeholder="'选择分类'"></inputcustomselect>
       </el-form-item>
       <el-form-item>
-        <inputdatepickercustom :lable="'发布时间'" v-mode="form.pub_time"></inputdatepickercustom>
+        <inputdatepickercustom :lable="'发布时间'"
+                                v-model="form.pub_time"></inputdatepickercustom>
       </el-form-item>
     </el-form>
   </el-dialog>
