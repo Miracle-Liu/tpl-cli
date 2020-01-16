@@ -1,5 +1,5 @@
 const _ = require('lodash')
-let questionsPlugins = Object.values(require('./questions'))
+// let questionsPlugins = Object.values(require('./questions'))
 let generatorPlugins = Object.values(require('./generator'))
 let loadComponentTemplatePlugns = Object.values(require('./loadComponentTemplate'))
 
@@ -30,17 +30,16 @@ function injectPlugin(plugin) {
 }
 
 async function run() {
-  let state = process.state = {
-    componentName: 'test',
-    componentSavePath: './',
-    importPath: {},
-    nodeTree: {},
-    childComponents: {}
-  }
+  // let state = process.state = {
+  //   componentName: 'test',
+  //   componentSavePath: './',
+  //   importPath: {},
+  //   nodeTree: {},
+  //   childComponents: {}
+  // }
 
 
 
-  let componentTemplate = this.loadComponentTemplate()
 
   // process.state.componentName = await this.askComponentName()
 
@@ -50,17 +49,14 @@ async function run() {
    * 需要把nodeTree ,   component,  importStatement 所需state分离开，多写点算法罢了(全部基于nodeTree)。但是行云流水，更加干净，整洁，虽多写了几行代码
    */
   // state.nodeTree = await this.askTags()
+  let componentTemplateInfo = this.loadComponentTemplate()
 
-  Object.assign(state, componentTemplate)
+  // Object.assign(state, componentTemplate)
 
-
-
-
-
-  this.componentGenerator(process.state)
+  this.componentGenerator(componentTemplateInfo)
 }
 
 
-App.extend([run, ...questionsPlugins, ...generatorPlugins, ...loadComponentTemplatePlugns])
+App.extend([run, ...generatorPlugins, ...loadComponentTemplatePlugns])
 
 module.exports = App

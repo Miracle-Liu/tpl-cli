@@ -1,8 +1,5 @@
 const config = require('../config/tpl.config.js')
 const tagMapping = require('../config/tagMapping.js')
-const Tag = require('../tag/index')
-
-
 
 let separator = config.separator
 
@@ -34,4 +31,10 @@ function nodeWapper(tagName) {
   return node
 }
 
+
+class Tag {
+  constructor(options) {
+    Object.assign(this, options)
+  }
+}
 module.exports = convert2NodeTree
