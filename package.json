@@ -1,10 +1,13 @@
 {
   "name": "dynamic-tpl",
-  "version": "0.0.1",
+  "version": "0.0.3",
   "description": "命令行自动化动态模板生成工具",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "bin": {
+    "dynamic-tpl": "./bin/dynamic-tpl/"
   },
   "repository": {
     "type": "git",

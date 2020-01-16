@@ -7,7 +7,8 @@ module.exports = {
       tagName: "el-form",
       props: {
         model: 'form',
-        'label-width': "80px"
+        'label-width': "80px",
+        rules: "rules"
       },
       children: [{
           tagName: "el-form-item",
@@ -19,7 +20,7 @@ module.exports = {
             tagName: "input",
             props: {
               lable: '标题',
-              "v-mode": "form.title",
+              "v-model": "form.title",
               required: true
             }
           }]
@@ -34,7 +35,8 @@ module.exports = {
             tagName: "input",
             props: {
               lable: '作者',
-              "v-mode": "form.author",
+              "v-model": "form.author",
+              placeholder: "填写作者"
             }
           }]
         },
@@ -47,8 +49,9 @@ module.exports = {
             tagName: "select",
             props: {
               lable: '分类',
-              "v-mode": "form.catalog",
-              required: true
+              "v-model": "form.catalog",
+              required: true,
+              placeholder: "选择分类"
             }
           }]
         },
@@ -59,7 +62,7 @@ module.exports = {
             tagName: "date",
             props: {
               lable: '发布时间',
-              "v-mode": "form.pub_time",
+              "v-model": "form.pub_time",
             }
           }]
         },
