@@ -1,13 +1,13 @@
 const _ = require('lodash')
 // let questionsPlugins = Object.values(require('./questions'))
 let generatorPlugins = Object.values(require('./generator'))
-let loadComponentTemplatePlugns = Object.values(require('./loadComponentTemplate'))
-
-
-
+let loadConfigPlugns = Object.values(require('./loadConfig'))
+let init = require('./init')
+let run = require('./run')
 
 class App {
   constructor(options) {
+    this.init(options)
     this.run()
   }
   static extend(plugins) {
@@ -29,34 +29,6 @@ function injectPlugin(plugin) {
   }
 }
 
-async function run() {
-  // let state = process.state = {
-  //   componentName: 'test',
-  //   componentSavePath: './',
-  //   importPath: {},
-  //   nodeTree: {},
-  //   childComponents: {}
-  // }
-
-
-
-
-  // process.state.componentName = await this.askComponentName()
-
-  // process.state.componentSavePath = await this.askComponentSavePath()
-
-  /**
-   * 需要把nodeTree ,   component,  importStatement 所需state分离开，多写点算法罢了(全部基于nodeTree)。但是行云流水，更加干净，整洁，虽多写了几行代码
-   */
-  // state.nodeTree = await this.askTags()
-  let componentTemplateInfo = this.loadComponentTemplate()
-
-  // Object.assign(state, componentTemplate)
-
-  this.componentGenerator(componentTemplateInfo)
-}
-
-
-App.extend([run, ...generatorPlugins, ...loadComponentTemplatePlugns])
+App.extend([init, run, ...generatorPlugins, ...loadConfigPlugns])
 
 module.exports = App

@@ -1,0 +1,22 @@
+#!/usr/bin/env node
+const { resolve } = require('path')
+const program = require('commander')
+const { version } = require(resolve(__dirname, '../package.json'))
+
+const init = require('../lib/init.js')
+
+program.version(version, '-v, --version')
+
+program.usage('<command>')
+
+program
+  .command('init [tpl-template-file ]')
+  .alias('i')
+  .description('Generate a new component')
+  .action(init)
+
+program.parse(process.argv)
+
+if (process.argv.length < 2) {
+  program.help()
+}

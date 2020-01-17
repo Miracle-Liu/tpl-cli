@@ -49,7 +49,7 @@ module.exports = {
 `tpl-template\index.js`
 
 ```javascript
-let { e } = require('../index.js')
+let { e } = require('dynamic-tpl')
 module.exports = {
   componentName: 'test',
   componentSavePath: './',
@@ -106,6 +106,91 @@ module.exports = {
 }
 ```
 
+the nodeTree also can be writed like this:
+
+```javascript
+{
+  nodeTree: {
+     tagName: 'el-dialog',
+    children: [
+      {
+        tagName: 'el-form',
+        props: {
+          model: 'form',
+          'label-width': '80px',
+          rules: 'rules' children: [
+          {
+            tagName: 'el-form-item',
+            props: {
+              lable: '标题',
+              required: true
+            },
+            children: [
+              {
+                tagName: 'input',
+                props: {
+                  lable: '标题',
+                  'v-model': 'form.title',
+                  required: true
+                }
+              }
+            ]
+          },
+          {
+            tagName: 'el-form-item',
+            props: {
+              lable: '作者',
+              required: true
+            },
+            children: [
+              {
+                tagName: 'input',
+                props: {
+                  lable: '作者',
+                  'v-model': 'form.author',
+                  placeholder: '填写作者'
+                }
+              }
+            ]
+          },
+          {
+            tagName: 'el-form-item',
+            props: {
+              prop: '"catalog"'
+            },
+            children: [
+              {
+                tagName: 'select',
+                props: {
+                  lable: '分类',
+                  'v-model': 'form.catalog',
+                  required: true,
+                  placeholder: '选择分类'
+                }
+              }
+            ]
+          },
+          {
+            tagName: 'el-form-item',
+            props: {},
+            children: [
+              {
+                tagName: 'date',
+                props: {
+                  lable: '发布时间',
+                  'v-model': 'form.pub_time'
+                }
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  }
+  }
+}
+```
+
 To distinguish between dynamic and static props,you need to write your propVaule like this: `"'propVaule'"` or `'"propVaule"'`,if propVaule includes chinese or not start with english,such as `80px`, not need quotes
 
 #### plugins
@@ -133,6 +218,8 @@ let generatorPlugins = {
 ```
 
 #### build
+
+in dynamic-tpl project test usage
 
 ```bash
 node test.js
@@ -224,3 +311,17 @@ export default {
 }
 </style>
 ```
+
+global usage
+
+```
+npm i -g dynamic-tpl
+```
+
+cd your project and write tpl-template,whatever location you place, and then apply follow code :
+
+```
+d-tpl i [tpl-template file path]
+```
+
+if you don not type `[tpl-template file path]`, you must place your `[tpl-template file]` in your project root directory

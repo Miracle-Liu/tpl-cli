@@ -1,13 +1,13 @@
 {
   "name": "dynamic-tpl",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "命令行自动化动态模板生成工具",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "bin": {
-    "dynamic-tpl": "./bin/dynamic-tpl/"
+    "d-tpl": "bin/tpl"
   },
   "repository": {
     "type": "git",
@@ -20,7 +20,7 @@
     "url": "https://github.com/Miracle-Liu/tpl-cli/issues"
   },
   "homepage": "https://github.com/Miracle-Liu/tpl-cli#readme",
-  "devDependencies": {
+  "dependencies": {
     "chalk": "^3.0.0",
     "cheerio": "^1.0.0-rc.3",
     "commander": "^4.0.1",
